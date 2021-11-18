@@ -13,9 +13,11 @@ public abstract class Polygon extends Figure {
 
     public void calculateArea() {
         area = 0;
-        for (int i = 0; i < points.size() - 1; i++) {
-            area += 0.5 * Math.abs(points.get(i).getX() * points.get(i + 1).getY()) - (points.get(i + 1).getX() * points.get(i).getY());
+        for (int i = 0; i < (points.size() - 1); i++) {
+            area += (points.get(i).getX() * points.get(i + 1).getY())
+                    - (points.get(i + 1).getX() * points.get(i).getY()) ;
         }
+        area = Math.abs(area / 2);
     }
 
     public void calculatePerimeter() {

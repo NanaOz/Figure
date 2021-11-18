@@ -31,22 +31,22 @@ public class Rectangle extends Polygon {
         for (int i = 0; i < n; i++) {
             result += points.get(i) + " ";
         }
-        result += "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
+        result += "\n Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
 
-    @Override
-    public void move(Point vect) {
-        System.out.println("я бегу");
-    }
-
-    @Override
-    public void rotate(double angle) {
-
-    }
-
-    @Override
-    public void scale(double scale) {
-
-    }
+//    @Override
+//    public void move(Point vect) {
+//        System.out.println("я бегу");
+//    }
+//
+//    @Override
+//    public void rotate(double angle) {
+//
+//    }
+//
+//    @Override
+//    public void scale(double scale) {
+//
+//    }
 }

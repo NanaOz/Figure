@@ -34,11 +34,11 @@ public class Triangle extends Polygon {
                 "\n" + "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
-
-    @Override
-    public void move(Point vect) {
-        System.out.println("я лечу");
-    }
+//
+//    @Override
+//    public void move(Point vect) {
+//        System.out.println("я лечу");
+//    }
 
 
     @Override
@@ -49,19 +49,19 @@ public class Triangle extends Polygon {
         return points.equals(triangle.points);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
-    }
-
-
-    @Override
-    public void rotate(double angle) {
-
-    }
-
-    @Override
-    public void scale(double scale) {
-
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(points);
+//    }
+//
+//
+//    @Override
+//    public void rotate(double angle) {
+//
+//    }
+//
+//    @Override
+//    public void scale(double scale) {
+//
+//    }
 }

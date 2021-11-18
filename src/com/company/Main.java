@@ -13,7 +13,7 @@ public class Main {
         ArrayList<Figure> figures = new ArrayList<Figure>();
 
         ArrayList<Point> trianglePoints = new ArrayList<>();
-        Collections.addAll(trianglePoints, new Point(3, 3), new Point(6, 8), new Point(12, 5));
+        Collections.addAll(trianglePoints, new Point(0, 0), new Point(0, 3), new Point(4, 3));
         Triangle triangle = new Triangle(trianglePoints);
 
         ArrayList<Point> rectanglePoints = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Main {
         Collections.addAll(circlePoints, new Point(3, 3), new Point(6, 8));
         Circle circle = new Circle(circlePoints);
 
-        Collections.addAll(figures, triangle, rectangle,circle);
+        Collections.addAll(figures, triangle, rectangle, circle);
         menu(figures);
     }
 
@@ -37,7 +37,6 @@ public class Main {
             System.out.println("3. Изменить фигуру");
             System.out.println("4. Удалить фигуру");
             System.out.println("0. Выход");
-
             int num = in.nextInt();
             switch (num) {
                 case 0:
@@ -53,16 +52,11 @@ public class Main {
                     figures.add(figure);
                     break;
                 case 3:
+                    System.out.println("Какую фигуры хотите изменить?");
                     printFigures(figures);
-                    System.out.println("Введите номер фигуры, которую хотите изменить:");
                     num = in.nextInt();
-                    System.out.println("Как вы хотите изменить фигуру?");
-                    System.out.println("1. Изменить масштаб");
-                    System.out.println("2. Повернуть фигуру");
-                    System.out.println("3. Переместить фигуру");
-                    int num2 = in.nextInt();
-
-                    //figures.set ();
+                    Figure f = figures.get(num - 1);
+                    actionFigure(f);
                     break;
                 case 4:
                     printFigures(figures);
@@ -105,5 +99,36 @@ public class Main {
                 return selectFigure();
         }
         return figureCreator;
+    }
+
+    static Figure actionFigure(Figure f) {
+        System.out.println("Выберите как хотите изменить фигуру: ");
+        System.out.println("1 - переместить");
+        System.out.println("2 - повернуть");
+        System.out.println("3 - масштабировать");
+        Scanner in = new Scanner(System.in);
+        int num = in.nextInt();
+        switch (num) {
+            case 1:
+                System.out.println("Укажите координаты для перемещения:");
+                int x = in.nextInt();
+                int y = in.nextInt();
+                f.move(new Point(x, y));
+                break;
+            case 2:
+                System.out.println("Укажите угол поворота:");
+                x = in.nextInt();
+                f.rotate(x);
+                break;
+            case 3:
+                System.out.println("Во сколько раз изменить масштаб фигуры");
+                x = in.nextInt();
+                f.scale(x);
+                break;
+            default:
+                System.out.println("Введите правильное значение");
+                return actionFigure(f);
+        }
+        return f;
     }
 }
