@@ -6,6 +6,7 @@ import com.company.Figure;
 public class CircleCreator extends FigureCreator{
     @Override
     public Figure createFigure() {
-        return Circle.inputCircle();
+
+        return new Circle(Figure.inputFigure(2));
     }
 }

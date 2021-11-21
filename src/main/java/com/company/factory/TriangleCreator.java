@@ -6,6 +6,7 @@ import com.company.Triangle;
 public class TriangleCreator extends FigureCreator{
     @Override
     public Figure createFigure() {
-        return Triangle.inputTriangle();
+
+        return new Triangle(Figure.inputFigure(3));
     }
 }

@@ -1,9 +1,6 @@
 package com.company.tests;
 
-import com.company.Point;
-import com.company.Triangle;
-
-import static org.junit.jupiter.api.Assertions.*;
+import java.awt.*;
 
 class TriangleTest {
 

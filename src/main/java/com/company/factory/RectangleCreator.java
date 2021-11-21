@@ -6,6 +6,6 @@ import com.company.Rectangle;
 public class RectangleCreator extends FigureCreator{
     @Override
     public Figure createFigure() {
-        return Rectangle.inputRectangle();
+        return new Rectangle(Figure.inputFigure(4));
     }
 }
