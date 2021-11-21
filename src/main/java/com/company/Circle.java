@@ -1,7 +1,5 @@
 package com.company;
 
-import com.company.interfaces.IMovable;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -10,7 +8,6 @@ public class Circle extends Figure {
     private double radius;
 
     public Circle(ArrayList<Point> points) {
-
         super(points);
     }
 
@@ -20,22 +17,19 @@ public class Circle extends Figure {
         Scanner in = new Scanner(System.in);
         int x = in.nextInt();
         int y = in.nextInt();
-        Point A = new Point(x, y);
+        Point center = new Point(x, y);
         x = in.nextInt();
         y = in.nextInt();
-        Point B = new Point(x, y);
+        Point A = new Point(x, y);
         return new Circle(points);
     }
 
-    public double radius(Point A, Point B) {
-//        for (int i = 0; i < 3; i++) {
-//            radius = Math.sqrt((Math.pow(points.get(i + 1).getX() - points.get(i).getX(), 2))
-//                    + Math.pow(points.get(i + 1).getY() - points.get(i).getY(), 2));
-//        }
-//        radius = radius / 2;
-        radius = (Math.sqrt((Math.pow(A.getX() - B.getX(), 2))
-                + Math.pow(A.getY() - B.getY(), 2))) / 2;
+    public void calculateRadius() {
+        radius = Math.sqrt(Math.pow(points.get(1).getX() - points.get(0).getX(), 2)
+                + Math.pow(points.get(1).getY() - points.get(0).getY(), 2));
+    }
 
+    public double getRadius() {
         return radius;
     }
 
@@ -61,7 +55,7 @@ public class Circle extends Figure {
 
     @Override
     public String toString() {
-        String result = "Круг с координатами " + points + " и радиусом " + radius +
+        String result = "Круг с координатами центра и точки на окружности: " + points + " и радиусом " + getRadius() +
                 "\n" + "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
@@ -69,7 +63,6 @@ public class Circle extends Figure {
     @Override
     public void move(Point vect) {
 
-        System.out.println("я плыву");
     }
 
     @Override
@@ -79,6 +72,6 @@ public class Circle extends Figure {
 
     @Override
     public void scale(double scale) {
-
+        radius *= scale;
     }
 }

@@ -1,0 +1,49 @@
+package com.company;
+
+import com.company.interfaces.IMovable;
+import com.company.interfaces.IRotatable;
+import com.company.interfaces.IScalable;
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+@JsonAutoDetect
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Circle.class, name = "Circle"),
+        @JsonSubTypes.Type(value = Triangle.class, name = "Triangle"),
+        @JsonSubTypes.Type(value = Rectangle.class, name = "Rectangle")
+})
+public abstract class Figure implements IMovable, IRotatable, IScalable, Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    protected ArrayList<Point> points;
+    protected Point figureCenter;
+    protected double area;
+    protected double perimeter;
+
+
+    public Figure(ArrayList<Point> points) {
+        this.points = points;
+    }
+
+    public double getArea() {
+        return area;
+    }
+
+    public double getPerimeter() {
+        return perimeter;
+    }
+
+    public void calculateArea (){}
+
+    public void calculatePerimeter(){}
+
+    public Point getCenter () {
+        return this.figureCenter;
+    }
+}

@@ -5,9 +5,11 @@ import com.company.factory.FigureCreator;
 import com.company.factory.RectangleCreator;
 import com.company.factory.TriangleCreator;
 
+import java.io.*;
 import java.util.*;
 
 public class Main {
+    static final File file = new File("src/main/java/com/company/data/figures.txt");
 
     public static void main(String[] args) {
         ArrayList<Figure> figures = new ArrayList<Figure>();
@@ -26,6 +28,36 @@ public class Main {
 
         Collections.addAll(figures, triangle, rectangle, circle);
         menu(figures);
+
+//        try (FileWriter writer = new FileWriter("figures.txt", true)){
+//            writer.write(triangle.toString());
+//
+//        }
+//        catch (IOException ex){
+//            System.out.println(ex.getMessage());
+//        }
+
+       
+        menu(initializeFromFile(file));
+    }
+
+    private static void saveToFile(List<Figure> figures, File file) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false))) {
+            oos.writeObject(figures);
+            System.out.printf("Объект записан\n");
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private static ArrayList<Figure> initializeFromFile(File file) {
+        ArrayList<Figure> f = new ArrayList<>();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+            f = (ArrayList<Figure>) ois.readObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return f;
     }
 
     public static void menu(List<Figure> figures) {
@@ -36,6 +68,7 @@ public class Main {
             System.out.println("2. Добавить фигуру");
             System.out.println("3. Изменить фигуру");
             System.out.println("4. Удалить фигуру");
+            System.out.println("5. Сохранить файл");
             System.out.println("0. Выход");
             int num = in.nextInt();
             switch (num) {
@@ -57,12 +90,16 @@ public class Main {
                     num = in.nextInt();
                     Figure f = figures.get(num - 1);
                     actionFigure(f);
+                    printFigures(figures);
                     break;
                 case 4:
                     printFigures(figures);
                     System.out.println("Введите номер фигуры, которую нужно удалить:");
                     num = in.nextInt();
                     figures.remove(num - 1);
+                    break;
+                case 5:
+                    saveToFile(figures, file);
                     break;
             }
         }
@@ -131,4 +168,6 @@ public class Main {
         }
         return f;
     }
+
+
 }

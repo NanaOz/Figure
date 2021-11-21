@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Polygon extends Figure {
 
@@ -12,21 +13,21 @@ public abstract class Polygon extends Figure {
     }
 
     public void calculateArea() {
-        area = 0;
+        this.area = 0;
         for (int i = 0; i < (points.size() - 1); i++) {
-            area += (points.get(i).getX() * points.get(i + 1).getY())
+            this.area += (points.get(i).getX() * points.get(i + 1).getY())
                     - (points.get(i + 1).getX() * points.get(i).getY()) ;
         }
-        area = Math.abs(area / 2);
+        this.area = Math.abs(area / 2);
     }
 
     public void calculatePerimeter() {
-        perimeter = 0;
+        this.perimeter = 0;
         for (int i = 0; i < points.size() - 1; i++) {
-            perimeter += Math.sqrt(Math.pow(points.get(i + 1).getX() - points.get(i).getX(), 2)
+            this.perimeter += Math.sqrt(Math.pow(points.get(i + 1).getX() - points.get(i).getX(), 2)
                     + Math.pow(points.get(i + 1).getY() - points.get(i).getY(), 2));
         }
-        perimeter += Math.sqrt(Math.pow(points.get(0).getX() - points.get(points.size() - 1).getX(), 2)
+        this.perimeter += Math.sqrt(Math.pow(points.get(0).getX() - points.get(points.size() - 1).getX(), 2)
                 + Math.pow(points.get(0).getY() - points.get(points.size() - 1).getY(), 2));
     }
 
@@ -39,7 +40,6 @@ public abstract class Polygon extends Figure {
         }
         this.figureCenter = new Point(sumX / points.size(), sumY / points.size());
     }
-
 
     @Override
     public void move(Point vect) {
@@ -65,5 +65,20 @@ public abstract class Polygon extends Figure {
             double y = (points.get(i).getY() - figureCenter.getY()) * scale + figureCenter.getY();
             points.set(i, new Point(x, y));
         }
+        calculateArea();
+        calculatePerimeter();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Figure figure = (Figure) o;
+        return points.equals(figure.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(points);
     }
 }

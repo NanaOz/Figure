@@ -1,6 +1,5 @@
 package com.company;
 
-import com.company.interfaces.IMovable;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -34,19 +33,4 @@ public class Rectangle extends Polygon {
         result += "\n Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
-
-//    @Override
-//    public void move(Point vect) {
-//        System.out.println("я бегу");
-//    }
-//
-//    @Override
-//    public void rotate(double angle) {
-//
-//    }
-//
-//    @Override
-//    public void scale(double scale) {
-//
-//    }
 }
