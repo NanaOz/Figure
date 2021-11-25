@@ -69,6 +69,7 @@ public class Main {
             System.out.println("3. Изменить фигуру");
             System.out.println("4. Удалить фигуру");
             System.out.println("5. Сохранить файл");
+            System.out.println("6. Загрузить сохраненные фигуры");
             System.out.println("0. Выход");
             int num = in.nextInt();
             switch (num) {
@@ -100,6 +101,9 @@ public class Main {
                     break;
                 case 5:
                     saveToFile(figures, file);
+                    break;
+                case 6:
+                    initializeFromFile(file);
                     break;
             }
         }
