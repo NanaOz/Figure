@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 @JsonAutoDetect
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -32,19 +31,6 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
         this.points = points;
     }
 
-    public static ArrayList inputFigure (int quantityOfPoints){
-        ArrayList <Point> points = new ArrayList<>();
-        System.out.println("Введите координаты:");
-        Scanner in = new Scanner(System.in);
-        for (int i = 0; i < quantityOfPoints; i++){
-            int x = in.nextInt();
-            int y = in.nextInt();
-            points.add(new Point(x, y));
-        }
-        System.out.println("Фигура добавлена\n");
-        return points;
-    }
-
     public double getArea() {
         return area;
     }
@@ -52,8 +38,6 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     public double getPerimeter() {
         return perimeter;
     }
-
-    public ArrayList<Point> getPoints() {return points;}
 
     public void calculateArea (){}
 

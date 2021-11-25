@@ -1,6 +1,5 @@
 package com.company;
 
-import com.company.Swing.Frame;
 import com.company.factory.CircleCreator;
 import com.company.factory.FigureCreator;
 import com.company.factory.RectangleCreator;
@@ -16,19 +15,18 @@ public class Main {
         ArrayList<Figure> figures = new ArrayList<Figure>();
 
         ArrayList<Point> trianglePoints = new ArrayList<>();
-        Collections.addAll(trianglePoints, new Point(0, 0), new Point(0, 300), new Point(400, 300));
+        Collections.addAll(trianglePoints, new Point(0, 0), new Point(0, 3), new Point(4, 3));
         Triangle triangle = new Triangle(trianglePoints);
 
         ArrayList<Point> rectanglePoints = new ArrayList<>();
-        Collections.addAll(rectanglePoints, new Point(400, 400), new Point(400, 600), new Point(600, 600), new Point(600, 400));
+        Collections.addAll(rectanglePoints, new Point(5, 3), new Point(7, 5), new Point(2, 6), new Point(4, 6));
         Rectangle rectangle = new Rectangle(rectanglePoints);
 
         ArrayList<Point> circlePoints = new ArrayList<>();
-        Collections.addAll(circlePoints, new Point(300, 300), new Point(300, 100));
+        Collections.addAll(circlePoints, new Point(3, 3), new Point(6, 8));
         Circle circle = new Circle(circlePoints);
 
         Collections.addAll(figures, triangle, rectangle, circle);
-
         menu(figures);
 
 //        try (FileWriter writer = new FileWriter("figures.txt", true)){
@@ -63,7 +61,6 @@ public class Main {
     }
 
     public static void menu(List<Figure> figures) {
-        Frame frame = new Frame(figures);
         Scanner in = new Scanner(System.in);
         while (true) {
             System.out.println("Выберите нужный пункт меню");
@@ -72,7 +69,6 @@ public class Main {
             System.out.println("3. Изменить фигуру");
             System.out.println("4. Удалить фигуру");
             System.out.println("5. Сохранить файл");
-            System.out.println("6. Загрузить файл");
             System.out.println("0. Выход");
             int num = in.nextInt();
             switch (num) {
@@ -104,9 +100,6 @@ public class Main {
                     break;
                 case 5:
                     saveToFile(figures, file);
-                    break;
-                case 6:
-                    initializeFromFile(file);
                     break;
             }
         }

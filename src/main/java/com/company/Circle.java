@@ -9,13 +9,23 @@ public class Circle extends Figure {
 
     public Circle(ArrayList<Point> points) {
         super(points);
-        this.calculateRadius();
-        this.calculatePerimeter();
-        this.calculateArea();
+    }
+
+    public static Circle inputCircle() {
+        ArrayList<Point> points = new ArrayList<>();
+        System.out.println("Введите координаты центра и точки окружности:");
+        Scanner in = new Scanner(System.in);
+        int x = in.nextInt();
+        int y = in.nextInt();
+        Point center = new Point(x, y);
+        x = in.nextInt();
+        y = in.nextInt();
+        Point A = new Point(x, y);
+        return new Circle(points);
     }
 
     public void calculateRadius() {
-        this.radius = Math.sqrt(Math.pow(points.get(1).getX() - points.get(0).getX(), 2)
+        radius = Math.sqrt(Math.pow(points.get(1).getX() - points.get(0).getX(), 2)
                 + Math.pow(points.get(1).getY() - points.get(0).getY(), 2));
     }
 
@@ -45,8 +55,8 @@ public class Circle extends Figure {
 
     @Override
     public String toString() {
-        String result = "Круг с координатами центра и точки на окружности: " + points + " и радиусом " + radius +
-                "\n" + "Характеристики: \nПериметр: " + this.getPerimeter() + "\nПлощадь: " + this.getArea();
+        String result = "Круг с координатами центра и точки на окружности: " + points + " и радиусом " + getRadius() +
+                "\n" + "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
 
