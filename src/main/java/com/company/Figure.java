@@ -53,6 +53,8 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
         return perimeter;
     }
 
+    public ArrayList<Point> getPoints() {return points;}
+
     public void calculateArea (){}
 
     public void calculatePerimeter(){}
