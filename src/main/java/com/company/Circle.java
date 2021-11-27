@@ -12,11 +12,11 @@ public class Circle extends Figure {
         this.calculateRadius();
         this.calculatePerimeter();
         this.calculateArea();
+
     }
 
-
     public void calculateRadius() {
-        radius = Math.sqrt(Math.pow(points.get(1).getX() - points.get(0).getX(), 2)
+        this.radius = Math.sqrt(Math.pow(points.get(1).getX() - points.get(0).getX(), 2)
                 + Math.pow(points.get(1).getY() - points.get(0).getY(), 2));
     }
 
@@ -32,6 +32,11 @@ public class Circle extends Figure {
     @Override
     public void calculatePerimeter() {
         this.perimeter = 2 * Math.PI * radius;
+    }
+
+    @Override
+    public void calculateCenter() {
+       this.figureCenter = this.points.get(0);
     }
 
     @Override

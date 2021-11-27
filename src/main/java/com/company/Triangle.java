@@ -13,9 +13,16 @@ public class Triangle extends Polygon {
     }
 
     @Override
+    public void calculateCenter() {
+        this.figureCenter = new Point(0, 0);
+    }
+
+    @Override
     public String toString() {
         String result = "Треугольник с вершинами в точках " + points +
                 "\n" + "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
         return result;
     }
+
+
 }

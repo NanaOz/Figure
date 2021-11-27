@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.Swing.Frame;
 import com.company.factory.CircleCreator;
 import com.company.factory.FigureCreator;
 import com.company.factory.RectangleCreator;
@@ -19,7 +20,7 @@ public class Main {
         Triangle triangle = new Triangle(trianglePoints);
 
         ArrayList<Point> rectanglePoints = new ArrayList<>();
-        Collections.addAll(rectanglePoints, new Point(5, 3), new Point(7, 5), new Point(2, 6), new Point(4, 6));
+        Collections.addAll(rectanglePoints, new Point(3, 2), new Point(3, 8), new Point(10, 8), new Point(10, 2));
         Rectangle rectangle = new Rectangle(rectanglePoints);
 
         ArrayList<Point> circlePoints = new ArrayList<>();
@@ -27,6 +28,8 @@ public class Main {
         Circle circle = new Circle(circlePoints);
 
         Collections.addAll(figures, triangle, rectangle, circle);
+
+        Frame frame = new Frame(figures);
         menu(figures);
 
 //        try (FileWriter writer = new FileWriter("figures.txt", true)){
@@ -37,8 +40,8 @@ public class Main {
 //            System.out.println(ex.getMessage());
 //        }
 
-       
         menu(initializeFromFile(file));
+
     }
 
     private static void saveToFile(List<Figure> figures, File file) {

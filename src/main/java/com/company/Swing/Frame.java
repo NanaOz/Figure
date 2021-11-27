@@ -1,49 +1,75 @@
 package com.company.Swing;
 
 import com.company.Figure;
+import com.company.Point;
+import com.company.Triangle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
 
 public class Frame extends JFrame {
     private Panel panel;
 
     private List<Figure> figures;
-    //или ArrayList?????
-    public Frame(List<Figure> figures){  //нужен ли (List)?
+
+    public Frame(List<Figure> figures){
         super("Отрисовка фигур");
         setVisible(true);
         setSize(800,500);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.figures = figures;
-        panel = new Panel(this.figures);
-        panel.setVisible(false);
-        JPanel jPanel = new JPanel();
-        JButton jButton = new JButton("Нажми и случится чудо");  //но чудо не получается!:(
+        this.panel = new Panel(figures);
+        JButton jButton = new JButton("Кнопка");
+        jButton.setVisible(true);
+        jButton.setBounds(50, 50, 50, 50);
+        this.panel.add(jButton);
+        this.panel.setVisible(true);
+        this.add(panel);
 
-//пробуем фишки с гугла)))Непонятно -нужно разобраться, но работет)
-        jButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                panel.setVisible(true);
-                panel.setVisible(false);
-                panel.setVisible(true);
-            }
-        });
+//        panel = new Panel();
+        panel.drawFigures(figures);
+//        panel.setVisible(true);
+//        JPanel jPanel = new JPanel();
+        JButton jButton2 = new JButton("Нажми и случится чудо");
 
-        jPanel.add(jButton);
 
-        getContentPane().setLayout(null);                      //или используем flowLayout????
-        panel.setLayout(new GridLayout(10, 10));
-        panel.setBounds(0,0,300,400);       //позиция 1панели
+        jButton2.addActionListener(this::actionPerformed );
+
+
+
+        panel.add(jButton2);
+
+//        getContentPane().setLayout(new FlowLayout());
+        panel.setBounds(0,0,1000,1000);       //позиция 1панели
         add(panel);
 
-        jPanel.setLayout(new GridLayout(10, 10));
-        jPanel.setBounds(300,200,200,200);  //позиция 2панели
-        add(jPanel);
+//        this.update(panel.drawFigures(figures));
+
+//        jPanel.setLayout(new GridLayout(10, 10));
+//        jPanel.setBounds(300,200,200,200);  //позиция 2панели
+//        add(jPanel);
+
     }
 
+
+    public void actionPerformed(ActionEvent e) {
+        ArrayList<com.company.Point> trianglePoints = new ArrayList<>();
+        Collections.addAll(trianglePoints, new com.company.Point(0, 0), new com.company.Point(0, 3), new Point(4, 3));
+        Triangle triangle = new Triangle(trianglePoints);
+        ArrayList <Figure> f = new ArrayList<>();
+        f.add(triangle);
+        panel = new Panel (f);
+        this.update(this.getGraphics());
+        this.repaint();
+
+//                panel.setVisible(!panel.isVisible());
+
+    }
 }

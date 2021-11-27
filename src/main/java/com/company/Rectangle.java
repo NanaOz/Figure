@@ -11,6 +11,11 @@ public class Rectangle extends Polygon {
     }
 
     @Override
+    public void calculateCenter() {
+        this.figureCenter = new Point(0, 0);
+    }
+
+    @Override
     public String toString() {
         String result = "Прямоугольник с вершинами в точках: ";
         int n = 4;

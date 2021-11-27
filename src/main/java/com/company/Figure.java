@@ -28,8 +28,11 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     protected double perimeter;
 
 
+
     public Figure(ArrayList<Point> points) {
+
         this.points = points;
+        this.calculateCenter();
     }
 
     public static ArrayList inputFigure (int quantityOfPoints){
@@ -53,11 +56,15 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
         return perimeter;
     }
 
-    public void calculateArea (){}
+    public abstract void calculateArea ();
 
-    public void calculatePerimeter(){}
+    public abstract void calculatePerimeter();
 
     public Point getCenter () {
         return this.figureCenter;
     }
+
+    public abstract void calculateCenter () ;
+
+    public ArrayList<Point> getPoints() {return points;}
 }
