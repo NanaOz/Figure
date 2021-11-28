@@ -24,7 +24,7 @@ public class Main {
         Rectangle rectangle = new Rectangle(rectanglePoints);
 
         ArrayList<Point> circlePoints = new ArrayList<>();
-        Collections.addAll(circlePoints, new Point(3, 3), new Point(6, 8));
+        Collections.addAll(circlePoints, new Point(2, 2), new Point(2, 4));
         Circle circle = new Circle(circlePoints);
 
         Collections.addAll(figures, triangle, rectangle, circle);

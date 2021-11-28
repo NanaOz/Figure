@@ -27,8 +27,6 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     protected double area;
     protected double perimeter;
 
-
-
     public Figure(ArrayList<Point> points) {
 
         this.points = points;

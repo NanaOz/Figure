@@ -12,7 +12,6 @@ public class Circle extends Figure {
         this.calculateRadius();
         this.calculatePerimeter();
         this.calculateArea();
-
     }
 
     public void calculateRadius() {
@@ -58,7 +57,11 @@ public class Circle extends Figure {
 
     @Override
     public void move(Point vect) {
-
+        for (int i = 0; i < points.size(); i++){
+            double x1 = vect.getX();
+            double y1 = vect.getY();
+            points.set (i, new Point(x1 + points.get(i).getX(), y1+points.get(i).getY()));
+        }
     }
 
     @Override

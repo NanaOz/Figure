@@ -19,8 +19,6 @@ public class Panel extends JPanel {
 
     public void drawFigures (List<Figure> figures){
 
-
-
     }
 
     @Override
@@ -30,7 +28,7 @@ public class Panel extends JPanel {
 //        g.fillRect(50, 50, 200, 200);
         Graphics2D g2 = (Graphics2D) g.create(0, 0, 2000, 2000);
 //        super.paintComponent(g2);
-        g2.setColor(Color.RED);
+        g2.setColor(Color.LIGHT_GRAY);
 
         g2.fillRect(0, 0, this.getWidth(), this.getHeight());
         g2.setColor(Color.BLACK);
