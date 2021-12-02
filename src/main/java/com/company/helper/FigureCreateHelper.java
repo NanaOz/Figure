@@ -56,58 +56,58 @@ public class FigureCreateHelper {
     /**
      * @param fileName Из файла получаем список фигур, храним его в виде мапы. Где строка - ключ.
      */
-//    public static TreeMap<String, Figure> getShapesByFile(String fileName) {
-//        TreeMap<String, Figure> shapes = new TreeMap<>(Comparator.comparingInt(Integer::parseInt));
-//        FigureCreator factory;
-//        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-//            String line;
-//            while (reader.ready()) {
-//                line = reader.readLine();
-//                List<Point> points = definePoints(line, true);
-//                if (points.size() > 1) {
-//                    factory = getFigureFactory(points);
-//                    shapes.put(String.valueOf(LINE_NUM), factory.createFigure(points));
-//                }
-//                LINE_NUM++;
-//            }
-//        } catch (FileNotFoundException e) {
-//            System.out.println("Файл не найден");
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return shapes;
-//    }
-//
-//    private static List<Point> definePoints(String line, boolean displayed) {    // определение Точек
-//        String[] points = line.split(";");
-//        List<Point> listPoints = new ArrayList<>();
-//        double x;
-//        double y;
-//        for (String point : points) {
-//            point = point.replaceAll("[A-zА-я]|[\\[\\](){}]|=", "").trim().replace(",", " ");
-//            try (Scanner scanner = new Scanner(point)) {
-//                scanner.useLocale(Locale.US);
-//                if (scanner.hasNextDouble()) {
-//                    x = scanner.nextDouble();
-//
-//                    y = scanner.nextDouble();
-//                    listPoints.add(new Point(x, y));
-//                }
-//            } catch (InputMismatchException e) {
-//                if (displayed) System.out.println("В строке №" + LINE_NUM + " - произошла ошибка при считывании");
-//                return listPoints;
-//            } catch (NoSuchElementException e) {
-//                if (displayed) System.out.println("В строке №" + LINE_NUM + " - нет пар координат!");
-//                return listPoints;
-//            }
-//        }
-//        int pointSize = listPoints.size();
-//        if (pointSize < 2 && displayed) {
-//            System.out.println("\nВ строке №" + LINE_NUM + " - " + pointSize
-//                    + (pointSize == 0 ? " координат" : " координата")
-//                    + ". Строка пропускается");
-//        }
-//        return listPoints;
-//    }
+    public static TreeMap<String, Figure> getFigureByFile(String fileName) {
+        TreeMap<String, Figure> shapes = new TreeMap<>(Comparator.comparingInt(Integer::parseInt));
+        FigureCreator factory;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while (reader.ready()) {
+                line = reader.readLine();
+                List<Point> points = definePoints(line, true);
+                if (points.size() > 1) {
+                    factory = getFigureFactory(points);
+                    shapes.put(String.valueOf(LINE_NUM), factory.createFigure(points));
+                }
+                LINE_NUM++;
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return shapes;
+    }
+
+    private static List<Point> definePoints(String line, boolean displayed) {    // определение Точек
+        String[] points = line.split(";");
+        List<Point> listPoints = new ArrayList<>();
+        double x;
+        double y;
+        for (String point : points) {
+            point = point.replaceAll("[A-zА-я]|[\\[\\](){}]|=", "").trim().replace(",", " ");
+            try (Scanner scanner = new Scanner(point)) {
+                scanner.useLocale(Locale.US);
+                if (scanner.hasNextDouble()) {
+                    x = scanner.nextDouble();
+
+                    y = scanner.nextDouble();
+                    listPoints.add(new Point(x, y));
+                }
+            } catch (InputMismatchException e) {
+                if (displayed) System.out.println("В строке №" + LINE_NUM + " - произошла ошибка при считывании");
+                return listPoints;
+            } catch (NoSuchElementException e) {
+                if (displayed) System.out.println("В строке №" + LINE_NUM + " - нет пар координат!");
+                return listPoints;
+            }
+        }
+        int pointSize = listPoints.size();
+        if (pointSize < 2 && displayed) {
+            System.out.println("\nВ строке №" + LINE_NUM + " - " + pointSize
+                    + (pointSize == 0 ? " координат" : " координата")
+                    + ". Строка пропускается");
+        }
+        return listPoints;
+    }
 }
 

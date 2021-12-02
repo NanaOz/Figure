@@ -20,10 +20,13 @@ public class Menu {
     private static final String SELECT_ACTION = "Выберите действие: ";
     private static final String INCORRECT_INPUT = "Такого действия не существует!";
     public static TreeMap<String, Figure> figures;
+    private final String fileName;
     static int id = 1;
 
-    public Menu(TreeMap<String, Figure> figures){
+    public Menu(TreeMap<String, Figure> figures, String fileName) {
         this.figures = figures;
+        this.fileName = fileName;
+
     }
 
     public static void existingFigure() {
@@ -64,7 +67,7 @@ public class Menu {
 
     }
 
-    private static void saveToFile(TreeMap<String, Figure>  figures, File file) {
+    private static void saveToFile(TreeMap<String, Figure> figures, File file) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false))) {
             oos.writeObject(figures);
             System.out.printf("Объект записан\n");
@@ -73,14 +76,14 @@ public class Menu {
         }
     }
 
-    private static ArrayList<Figure> initializeFromFile(File file) {
-        ArrayList<Figure> f = new ArrayList<>();
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
-            f = (ArrayList<Figure>) ois.readObject();
+    private static TreeMap<String, Figure> initializeFromFile(File file) {
+        TreeMap<String, Figure> figures = new TreeMap<String, Figure>();
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {  //BufferedInputStream??
+            figures = (TreeMap<String, Figure>) ois.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return f;
+        return figures;
     }
 
     private static final String MAIN_MENU = "Выберите нужный пункт меню:"
@@ -96,10 +99,10 @@ public class Menu {
             + "\n\t4 - Удалить"
             + "\n\t0 - Вернуться назад\n";
 
-    public static void startMenu() {
+    public static void start() {
         serializeAndDeserialize();
-//        saveToFile (figures, file);
-//        initializeFromFile (file);
+        saveToFile (figures, file);
+        initializeFromFile (file);
         System.out.println("--------WELCOME--------");
         boolean itContinues = true;
         while (itContinues) {
@@ -115,7 +118,7 @@ public class Menu {
                     startActionFigureMenu();
                     break;
                 case 4:
-
+                    saveToFile(figures, file);
                     break;
                 case 0:
                     System.exit(0);
