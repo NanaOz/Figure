@@ -1,20 +1,24 @@
 package com.company.Swing;
 
 import com.company.Figure;
-import com.company.Point;
-import com.company.Triangle;
+import com.company.figure.Point;
+import com.company.figure.Triangle;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
 
 public class Frame extends JFrame {
+
+    public Frame(){
+        super();
+//
+
+    }
+
     private Panel panel;
 
     private List<Figure> figures;
@@ -60,8 +64,8 @@ public class Frame extends JFrame {
 
 
     public void actionPerformed(ActionEvent e) {
-        ArrayList<com.company.Point> trianglePoints = new ArrayList<>();
-        Collections.addAll(trianglePoints, new com.company.Point(0, 0), new com.company.Point(0, 3), new Point(4, 3));
+        ArrayList<Point> trianglePoints = new ArrayList<>();
+        Collections.addAll(trianglePoints, new Point(0, 0), new Point(0, 3), new Point(4, 3));
         Triangle triangle = new Triangle(trianglePoints);
         ArrayList <Figure> f = new ArrayList<>();
         f.add(triangle);

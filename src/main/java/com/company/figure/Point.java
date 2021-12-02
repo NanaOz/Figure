@@ -1,4 +1,4 @@
-package com.company;
+package com.company.figure;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 

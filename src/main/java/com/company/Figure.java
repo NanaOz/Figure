@@ -1,5 +1,9 @@
 package com.company;
 
+import com.company.figure.Circle;
+import com.company.figure.Point;
+import com.company.figure.Rectangle;
+import com.company.figure.Triangle;
 import com.company.interfaces.IMovable;
 import com.company.interfaces.IRotatable;
 import com.company.interfaces.IScalable;
@@ -9,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 @JsonAutoDetect
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -22,29 +26,33 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
 
     private static final long serialVersionUID = 1L;
 
-    protected ArrayList<Point> points;
+    protected List<Point> points;
     protected Point figureCenter;
     protected double area;
     protected double perimeter;
 
-    public Figure(ArrayList<Point> points) {
+    public Figure(List<Point> points) {
 
         this.points = points;
         this.calculateCenter();
     }
 
-    public static ArrayList inputFigure (int quantityOfPoints){
-        ArrayList <Point> points = new ArrayList<>();
-        System.out.println("Введите координаты:");
-        Scanner in = new Scanner(System.in);
-        for (int i = 0; i < quantityOfPoints; i++){
-            int x = in.nextInt();
-            int y = in.nextInt();
-            points.add(new Point(x, y));
-        }
-        System.out.println("Фигура добавлена\n");
-        return points;
-    }
+//    /**
+//     * @param quantityOfPoints
+//     * @return
+//     */
+//    public static ArrayList<Point> inputFigure (int quantityOfPoints){
+//        ArrayList <Point> points = new ArrayList<>();
+//        System.out.println("Введите координаты:");
+//        Scanner in = new Scanner(System.in);
+//        for (int i = 0; i < quantityOfPoints; i++){
+//            int x = in.nextInt();
+//            int y = in.nextInt();
+//            points.add(new Point(x, y));
+//        }
+//        System.out.println("Фигура добавлена\n");
+//        return points;
+//    }
 
     public double getArea() {
         return area;
@@ -64,5 +72,6 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
 
     public abstract void calculateCenter () ;
 
-    public ArrayList<Point> getPoints() {return points;}
+    public List<Point> getPoints() {return points;}
+
 }

@@ -1,11 +1,15 @@
 package com.company.factory;
 
 import com.company.Figure;
-import com.company.Rectangle;
+import com.company.figure.Point;
+import com.company.figure.Rectangle;
 
-public class RectangleCreator extends FigureCreator{
+import java.util.List;
+
+public class RectangleCreator implements FigureCreator{
     @Override
-    public Figure createFigure() {
-        return new Rectangle(Figure.inputFigure(4));
+    public Figure createFigure(List<Point> points) {
+        return new Rectangle(points);
+
     }
 }

@@ -1,12 +1,13 @@
 package com.company.factory;
 
-import com.company.Circle;
-import com.company.Figure;
+import com.company.figure.Circle;
+import com.company.figure.Point;
 
-public class CircleCreator extends FigureCreator{
+import java.util.List;
+
+public class CircleCreator implements FigureCreator {
     @Override
-    public Figure createFigure() {
-
-        return new Circle(Figure.inputFigure(2));
+    public Circle createFigure(List<Point> points) {
+        return new Circle(points);
     }
 }

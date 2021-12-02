@@ -1,12 +1,15 @@
 package com.company.factory;
 
 import com.company.Figure;
-import com.company.Triangle;
+import com.company.figure.Point;
+import com.company.figure.Triangle;
 
-public class TriangleCreator extends FigureCreator{
+import java.util.List;
+
+public class TriangleCreator implements FigureCreator {
     @Override
-    public Figure createFigure() {
+    public Figure createFigure(List<Point> points) {
+        return new Triangle(points);
 
-        return new Triangle(Figure.inputFigure(3));
     }
 }

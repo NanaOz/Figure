@@ -1,7 +1,11 @@
 package com.company.factory;
 
 import com.company.Figure;
+import com.company.figure.Point;
 
-public abstract class FigureCreator {
-    public abstract Figure createFigure();
+import java.util.List;
+
+public interface FigureCreator {
+
+    Figure createFigure(List<Point> points);
 }

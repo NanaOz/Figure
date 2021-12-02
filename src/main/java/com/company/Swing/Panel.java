@@ -1,12 +1,11 @@
 package com.company.Swing;
 
-import com.company.Circle;
+import com.company.figure.Circle;
 import com.company.Figure;
-import com.company.Point;
+import com.company.figure.Point;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Panel extends JPanel {
@@ -14,29 +13,34 @@ public class Panel extends JPanel {
     private final List<Figure> figures;
 
     public Panel(List<Figure> figures){
+        super();
         this.figures = figures;
+
     }
 
     public void drawFigures (List<Figure> figures){
+
+
 
     }
 
     @Override
     public void paintComponent(Graphics g){
-//        g.setColor(Color.BLACK);
-//        g.drawLine(50, 50, 100 , 100);
-//        g.fillRect(50, 50, 200, 200);
-        Graphics2D g2 = (Graphics2D) g.create(0, 0, 2000, 2000);
-//        super.paintComponent(g2);
+       int width = 1000;
+       int height = 1000;
+       int startX = 0;
+       int startY = 0;
+        Graphics2D g2 = (Graphics2D) g.create(startX, startY, width, height);
         g2.setColor(Color.LIGHT_GRAY);
-
-        g2.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2.fillRect(0, 0, width, height);
         g2.setColor(Color.BLACK);
+        g2.drawLine(width/2, 0, width/2, height);
+        g2.drawLine(0, height/2, height/2, width);
 
 
         int multiplayer = 10;
         for (Figure figure: figures) {
-            ArrayList<Point> points = figure.getPoints();
+            List<Point> points = figure.getPoints();
             if (figure instanceof Circle){
                 Circle circle = (Circle)figure;
                 int x1 = (int)circle.getCenter().getX()*multiplayer;

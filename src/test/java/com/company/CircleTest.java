@@ -1,12 +1,12 @@
 package com.company;
 
+import com.company.figure.Circle;
+import com.company.figure.Point;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CircleTest {
 
@@ -17,13 +17,17 @@ class CircleTest {
         Collections.addAll(circlePoints, new Point(2, 2), new Point(2, 4));
         Circle circle = new Circle(circlePoints);
         circle.calculateRadius();
-        Assertions.assertEquals(circle.getRadius(),2 );
+        Assertions.assertEquals(circle.getRadius(), 2);
+    }
+
+    @Test
+    void calculateRadiusForPointNull() {
         //если координаты 0, то:
         ArrayList<Point> circlePoints0 = new ArrayList<>();
         Collections.addAll(circlePoints0, new Point(0, 0), new Point(0, 0));
         Circle circle0 = new Circle(circlePoints0);
         circle0.calculateRadius();
-        Assertions.assertEquals(circle0.getRadius(),0 );
+        Assertions.assertEquals(circle0.getRadius(), 0);
 
     }
 
@@ -33,13 +37,17 @@ class CircleTest {
         Collections.addAll(circlePoints, new Point(2, 2), new Point(2, 4));
         Circle circle = new Circle(circlePoints);
         circle.calculateArea();
-        Assertions.assertEquals(circle.area,12.566370614359172 );
+        Assertions.assertEquals(circle.area, 12.566370614359172);
+    }
+
+    @Test
+    void calculateAreaForPointNull() {
         //если координаты 0, то:
         ArrayList<Point> circlePoints0 = new ArrayList<>();
         Collections.addAll(circlePoints0, new Point(0, 0), new Point(0, 0));
         Circle circle0 = new Circle(circlePoints0);
         circle0.calculateArea();
-        Assertions.assertEquals(circle0.area,0 );
+        Assertions.assertEquals(circle0.area, 0);
     }
 
     @Test
@@ -48,12 +56,16 @@ class CircleTest {
         Collections.addAll(circlePoints, new Point(2, 2), new Point(2, 4));
         Circle circle = new Circle(circlePoints);
         circle.calculatePerimeter();
-        Assertions.assertEquals(circle.perimeter,12.566370614359172 );
+        Assertions.assertEquals(circle.perimeter, 12.566370614359172);
+    }
+
+    @Test
+    void calculatePerimeterForPointNull() {
         //если координаты 0, то:
         ArrayList<Point> circlePoints0 = new ArrayList<>();
         Collections.addAll(circlePoints0, new Point(0, 0), new Point(0, 0));
         Circle circle0 = new Circle(circlePoints0);
         circle0.calculatePerimeter();
-        Assertions.assertEquals(circle0.perimeter,0 );
+        Assertions.assertEquals(circle0.perimeter, 0);
     }
 }

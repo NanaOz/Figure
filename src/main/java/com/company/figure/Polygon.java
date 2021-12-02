@@ -1,17 +1,23 @@
-package com.company;
+package com.company.figure;
 
-import java.util.ArrayList;
+import com.company.Figure;
+
+import java.util.List;
 import java.util.Objects;
 
-public abstract class Polygon extends Figure {
+public class Polygon extends Figure {
 
-    public Polygon(ArrayList<Point> points) {
+    public Polygon(List<Point> points) {
         super(points);
         this.calculateArea();
         this.calculatePerimeter();
-        this.calculateFigureCenter();
+        this.calculateCenter();
     }
 
+    /**
+     * Расчет площади фигуры
+     * по формуле Гауса 0.5*|X[i]*Y[i+1] - X[i+1]Y[i]|
+     */
     public void calculateArea() {
         this.area = 0;
         for (int i = 0; i < (points.size() - 1); i++) {
@@ -22,9 +28,13 @@ public abstract class Polygon extends Figure {
         this.area += ((points.get(points.size() - 1).getX() * points.get(0).getY())
                 - (points.get(0).getX() * points.get(points.size() - 1).getY()));
 
-        this.area =Math.abs(area / 2);
+        this.area = Math.abs(area / 2);
     }
 
+    /**
+     * Расчет периметра фигуры
+     * sqrt((X[b]-X[a])^2+(Y[b]-Y[a])^2)
+     */
     public void calculatePerimeter() {
         this.perimeter = 0;
         for (int i = 0; i < points.size() - 1; i++) {
@@ -35,7 +45,10 @@ public abstract class Polygon extends Figure {
                 + Math.pow(points.get(0).getY() - points.get(points.size() - 1).getY(), 2));
     }
 
-    public void calculateFigureCenter() {
+    /**
+     * Расчет центра фигуры
+     */
+    public void calculateCenter() {
         double sumX = 0;
         double sumY = 0;
         for (Point p : points) {
@@ -74,15 +87,13 @@ public abstract class Polygon extends Figure {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Figure figure = (Figure) o;
-        return points.equals(figure.points);
-    }
+    public String toString() {
+        String result = "\nМногоугольник с вершинами в точках: ";
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(points);
+        for (int i = 0; i < points.size(); i++) {
+            result += points.get(i) + " ";
+        }
+        result += "\n*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea() + "\n";
+        return result;
     }
 }

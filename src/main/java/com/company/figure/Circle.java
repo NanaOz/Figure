@@ -1,13 +1,14 @@
-package com.company;
+package com.company.figure;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import com.company.Figure;
+
+import java.util.List;
 
 public class Circle extends Figure {
 
     private double radius;
 
-    public Circle(ArrayList<Point> points) {
+    public Circle(List<Point> points) {
         super(points);
         this.calculateRadius();
         this.calculatePerimeter();
@@ -50,8 +51,8 @@ public class Circle extends Figure {
 
     @Override
     public String toString() {
-        String result = "Круг с координатами центра и точки на окружности: " + points + " и радиусом " + getRadius() +
-                "\n" + "Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
+        String result = "\nКруг с координатами центра и точки на окружности: " + points + " и радиусом " + getRadius() +
+                "\n" + "*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea()+"\n";
         return result;
     }
 

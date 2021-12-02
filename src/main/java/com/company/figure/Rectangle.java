@@ -1,12 +1,11 @@
-package com.company;
+package com.company.figure;
 
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
 
 public class Rectangle extends Polygon {
 
-    public Rectangle(ArrayList<Point> points) {
+    public Rectangle(List<Point> points) {
         super(points);
     }
 
@@ -17,12 +16,12 @@ public class Rectangle extends Polygon {
 
     @Override
     public String toString() {
-        String result = "Прямоугольник с вершинами в точках: ";
+        String result = "\nПрямоугольник с вершинами в точках: ";
         int n = 4;
         for (int i = 0; i < n; i++) {
             result += points.get(i) + " ";
         }
-        result += "\n Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea();
+        result += "\n*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea() + "\n";
         return result;
     }
 }
