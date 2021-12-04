@@ -35,6 +35,8 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
 
         this.points = points;
         this.calculateCenter();
+        this.calculateArea();
+        this.calculatePerimeter();
     }
 
 //    /**

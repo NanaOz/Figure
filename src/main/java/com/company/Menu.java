@@ -15,7 +15,7 @@ import java.io.*;
 import java.util.*;
 
 public class Menu {
-    static final File file = new File("src/main/java/com/company/data/figures.txt");
+    static final File file = new File("src/main/java/com/company/data/template.txt");
 
     private static final String SELECT_ACTION = "Выберите действие: ";
     private static final String INCORRECT_INPUT = "Такого действия не существует!";
@@ -86,6 +86,7 @@ public class Menu {
         return figures;
     }
 
+
     private static final String MAIN_MENU = "Выберите нужный пункт меню:"
             + "\n\t1 - Вывести все фигуры"
             + "\n\t2 - Создать фигуру"
@@ -100,9 +101,10 @@ public class Menu {
             + "\n\t0 - Вернуться назад\n";
 
     public static void start() {
-        serializeAndDeserialize();
         saveToFile (figures, file);
         initializeFromFile (file);
+        serializeAndDeserialize();
+
         System.out.println("--------WELCOME--------");
         boolean itContinues = true;
         while (itContinues) {
