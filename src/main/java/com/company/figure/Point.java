@@ -3,12 +3,15 @@ package com.company.figure;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @JsonAutoDetect
 public class Point implements Serializable {
     private double x;
     private double y;
 
+    public Point() {
+    }
 
     public Point  (double x, double y) {
         this.x = x;
@@ -27,5 +30,4 @@ public class Point implements Serializable {
         String result = "(" + x + "; " + y + ") ";
         return result;
     }
-
 }

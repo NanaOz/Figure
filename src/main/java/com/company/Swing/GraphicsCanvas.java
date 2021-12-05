@@ -4,23 +4,22 @@ import com.company.figure.Circle;
 import com.company.Figure;
 import com.company.figure.Point;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.TreeMap;
 
 public class GraphicsCanvas extends Canvas {
 
-    private List<Figure> figures;
+    private TreeMap<String, Figure> figures;
 
-    public GraphicsCanvas(List<Figure> figures){
+    public GraphicsCanvas(TreeMap<String, Figure> figures) {
         super();
         this.figures = figures;
     }
 
-    public void paint (Graphics g) {
-        int width = 1000;
-        int height = 1000;
+    public void paint(Graphics g) {
+        int width = 600;
+        int height = 600;
         int startX = 0;
         int startY = 0;
         Graphics canvas = (Graphics) g.create(startX, startY, width, height);
@@ -30,7 +29,8 @@ public class GraphicsCanvas extends Canvas {
         canvas.drawLine(width / 2, 0, width / 2, height);
         canvas.drawLine(0, height / 2, width, height / 2);
 
-        for (Figure figure : figures) {
+
+        for (Figure figure : figures.values()) {
             List<Point> points = figure.getPoints();
             if (figure instanceof Circle) {
                 Circle circle = (Circle) figure;
@@ -46,8 +46,8 @@ public class GraphicsCanvas extends Canvas {
                     int y2 = (int) figure.getPoints().get(i + 1).getY();
                     canvas.drawLine(x1, y1, x2, y2);
                 }
-                int x1 = (int) figure.getPoints().get(figure.getPoints().size()-1).getX();
-                int y1 = (int) figure.getPoints().get(figure.getPoints().size()-1).getY();
+                int x1 = (int) figure.getPoints().get(figure.getPoints().size() - 1).getX();
+                int y1 = (int) figure.getPoints().get(figure.getPoints().size() - 1).getY();
                 int x2 = (int) figure.getPoints().get(0).getX();
                 int y2 = (int) figure.getPoints().get(0).getY();
                 canvas.drawLine(x1, y1, x2, y2);

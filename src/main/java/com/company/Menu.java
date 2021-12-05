@@ -15,18 +15,14 @@ import java.io.*;
 import java.util.*;
 
 public class Menu {
-    static final File file = new File("src/main/java/com/company/data/template.txt");
 
     private static final String SELECT_ACTION = "Выберите действие: ";
     private static final String INCORRECT_INPUT = "Такого действия не существует!";
     public static TreeMap<String, Figure> figures;
-    private final String fileName;
     static int id = 1;
 
-    public Menu(TreeMap<String, Figure> figures, String fileName) {
+    public Menu(TreeMap<String, Figure> figures) {
         this.figures = figures;
-        this.fileName = fileName;
-
     }
 
     public static void existingFigure() {
@@ -44,48 +40,33 @@ public class Menu {
         Collections.addAll(circlePoints, new Point(2, 2), new Point(2, 4));
         Circle circle = new Circle(circlePoints);
 
-//        Collections.addAll(figures, triangle, rectangle, circle);
         figures.put(String.valueOf(id), triangle);
         id++;
         figures.put(String.valueOf(id), rectangle);
         id++;
         figures.put(String.valueOf(id), circle);
         id++;
-
-//        Frame frame = new Frame(figures);
-//        menu(figures);
-
-//        try (FileWriter writer = new FileWriter("figures.txt", true)){
-//            writer.write(triangle.toString());
-//
-//        }
-//        catch (IOException ex){
-//            System.out.println(ex.getMessage());
-//        }
-
-//        menu(initializeFromFile(file));
-
     }
-
-    private static void saveToFile(TreeMap<String, Figure> figures, File file) {
+    private static final long serialVersionUID = 1L;
+    public static void saveToFile(TreeMap<String, Figure> figures, String file) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false))) {
-            oos.writeObject(figures);
+       oos.writeObject(figures);
             System.out.printf("Объект записан\n");
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }
 
-    private static TreeMap<String, Figure> initializeFromFile(File file) {
+    public static TreeMap<String, Figure> initializeFromFile(String file) {
         TreeMap<String, Figure> figures = new TreeMap<String, Figure>();
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {  //BufferedInputStream??
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
+
             figures = (TreeMap<String, Figure>) ois.readObject();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return figures;
     }
-
 
     private static final String MAIN_MENU = "Выберите нужный пункт меню:"
             + "\n\t1 - Вывести все фигуры"
@@ -101,9 +82,6 @@ public class Menu {
             + "\n\t0 - Вернуться назад\n";
 
     public static void start() {
-        saveToFile (figures, file);
-        initializeFromFile (file);
-        serializeAndDeserialize();
 
         System.out.println("--------WELCOME--------");
         boolean itContinues = true;
@@ -120,7 +98,7 @@ public class Menu {
                     startActionFigureMenu();
                     break;
                 case 4:
-                    saveToFile(figures, file);
+                    saveToFile(figures, Main.file);
                     break;
                 case 0:
                     System.exit(0);
@@ -213,13 +191,11 @@ public class Menu {
         System.out.println(figure);
     }
 
-
     /**
      * Перемещение фигуры
      */
     private static void moveFigure(Figure figure) {
         System.out.println("Введите направление, для перемещения фигуры: ");
-//        int vect = ScannerHelper.readInt();
         double x = ScannerHelper.getDoubleFromInput("Введите x: ");
         double y = ScannerHelper.getDoubleFromInput("Введите y: ");
         figure.move(new Point(x, y));
@@ -234,44 +210,12 @@ public class Menu {
         System.out.println("Фигура удалена\n");
     }
 
-    @JsonAutoDetect
-    public static class FigureCollection {
-        public ArrayList<Figure> figures;
-
-        public FigureCollection() {
-            this.figures = new ArrayList<>();
-        }
-    }
-
-    /**
-     * Сериализация и десериализация JSON
-     */
-    private static void serializeAndDeserialize() {
-        FigureCollection collection = new FigureCollection();
-        collection.figures.addAll(figures.values());
-        StringWriter writer = new StringWriter();
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
-
-        // Сериализация
-        try {
-            mapper.writeValue(writer, collection);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String result = writer.toString();
-
-        System.out.println("result = " + result);
-
-        // Десериализация
-        try {
-            collection = mapper.readValue(result, FigureCollection.class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        for (Figure figure : collection.figures) {
-            System.out.println(figure);
-        }
-    }
+//    @JsonAutoDetect
+//    public static class FigureCollection {
+//        public ArrayList<Figure> figures;
+//
+//        public FigureCollection() {
+//            this.figures = new ArrayList<>();
+//        }
+//    }
 }

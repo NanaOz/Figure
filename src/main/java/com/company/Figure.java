@@ -31,30 +31,15 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     protected double area;
     protected double perimeter;
 
-    public Figure(List<Point> points) {
+    public Figure() {
+    }
 
+    public Figure(List<Point> points) {
         this.points = points;
         this.calculateCenter();
         this.calculateArea();
         this.calculatePerimeter();
     }
-
-//    /**
-//     * @param quantityOfPoints
-//     * @return
-//     */
-//    public static ArrayList<Point> inputFigure (int quantityOfPoints){
-//        ArrayList <Point> points = new ArrayList<>();
-//        System.out.println("Введите координаты:");
-//        Scanner in = new Scanner(System.in);
-//        for (int i = 0; i < quantityOfPoints; i++){
-//            int x = in.nextInt();
-//            int y = in.nextInt();
-//            points.add(new Point(x, y));
-//        }
-//        System.out.println("Фигура добавлена\n");
-//        return points;
-//    }
 
     public double getArea() {
         return area;

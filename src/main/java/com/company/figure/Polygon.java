@@ -5,13 +5,13 @@ import com.company.Figure;
 import java.util.List;
 import java.util.Objects;
 
-public class Polygon extends Figure {
+public class Polygon extends Figure{
+
+    public Polygon() {
+    }
 
     public Polygon(List<Point> points) {
         super(points);
-        this.calculateArea();
-        this.calculatePerimeter();
-        this.calculateCenter();
     }
 
     /**
@@ -96,4 +96,5 @@ public class Polygon extends Figure {
         result += "\n*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea() + "\n";
         return result;
     }
+
 }

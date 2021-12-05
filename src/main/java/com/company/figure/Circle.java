@@ -8,6 +8,9 @@ public class Circle extends Figure {
 
     private double radius;
 
+    public Circle() {
+    }
+
     public Circle(List<Point> points) {
         super(points);
         this.calculateRadius();
