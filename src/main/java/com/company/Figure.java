@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
 })
 public abstract class Figure implements IMovable, IRotatable, IScalable, Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     protected List<Point> points;
@@ -31,14 +33,23 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     protected double area;
     protected double perimeter;
 
-    public Figure() {
-    }
+    public Figure() {}
 
     public Figure(List<Point> points) {
         this.points = points;
         this.calculateCenter();
         this.calculateArea();
         this.calculatePerimeter();
+    }
+
+    public abstract void calculateCenter () ;
+
+    public abstract void calculateArea ();
+
+    public abstract void calculatePerimeter();
+
+    public Point getCenter () {
+        return this.figureCenter;
     }
 
     public double getArea() {
@@ -49,16 +60,7 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
         return perimeter;
     }
 
-    public abstract void calculateArea ();
-
-    public abstract void calculatePerimeter();
-
-    public Point getCenter () {
-        return this.figureCenter;
-    }
-
-    public abstract void calculateCenter () ;
-
     public List<Point> getPoints() {return points;}
 
+    public abstract boolean containPoint (int x, int y, int  multiplierX, int multiplierY);
 }

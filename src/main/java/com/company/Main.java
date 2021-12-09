@@ -10,8 +10,10 @@ public class Main {
     }
 
     public static void startMenu() {
-//        Menu.existingFigure();
-//        Menu.saveToFile(Menu.figures, file);
+        //раскомментировать при первом запуске программы
+        //      Menu.existingFigure();
+        //     Menu.saveToFile(Menu.figures, file);
+
         Menu menu = new Menu(Menu.initializeFromFile(file));
 
         new MyWindow(Menu.figures);

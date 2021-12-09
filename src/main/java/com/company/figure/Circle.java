@@ -8,8 +8,7 @@ public class Circle extends Figure {
 
     private double radius;
 
-    public Circle() {
-    }
+    public Circle() {}
 
     public Circle(List<Point> points) {
         super(points);
@@ -53,9 +52,19 @@ public class Circle extends Figure {
     }
 
     @Override
+    public boolean containPoint(int x, int y, int multiplierX, int multiplierY) {
+        this.getCenter();
+        int multiplier = Math.min(multiplierX, multiplierY);
+        double distance  = Math.sqrt(Math.pow(x - this.getCenter().getX()*multiplierX, 2)
+                + Math.pow(y - this.getCenter().getY()*multiplierY, 2));
+        return (Math.abs(radius* multiplier-distance)<2);
+    }
+
+    @Override
     public String toString() {
         String result = "\nКруг с координатами центра и точки на окружности: " + points + " и радиусом " + getRadius() +
-                "\n" + "*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea()+"\n";
+                "\n" + "*Характеристики: \nПериметр: "
+                + getPerimeter() + "\nПлощадь: " + getArea() + "\nЦентр фигуры: " + getCenter() + "\n";
         return result;
     }
 
@@ -69,12 +78,11 @@ public class Circle extends Figure {
     }
 
     @Override
-    public void rotate(double angle) {
-
-    }
+    public void rotate(double angle) {}
 
     @Override
     public void scale(double scale) {
         radius *= scale;
     }
+
 }

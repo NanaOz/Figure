@@ -5,7 +5,7 @@ import com.company.Figure;
 import java.util.List;
 import java.util.Objects;
 
-public class Polygon extends Figure{
+public class Polygon extends Figure {
 
     public Polygon() {
     }
@@ -43,6 +43,29 @@ public class Polygon extends Figure{
         }
         this.perimeter += Math.sqrt(Math.pow(points.get(0).getX() - points.get(points.size() - 1).getX(), 2)
                 + Math.pow(points.get(0).getY() - points.get(points.size() - 1).getY(), 2));
+    }
+
+    @Override
+    public boolean containPoint(int x, int y, int multiplierX, int multiplierY) {
+        boolean flag = false;
+        for (int i = 0; i < this.getPoints().size(); i++) {
+            int j = i == this.getPoints().size() - 1 ? 0 : i + 1;
+            double x1 = this.getPoints().get(i).getX() * multiplierX;
+            double x2 = this.getPoints().get(j).getX() * multiplierX;
+            double y1 = this.getPoints().get(i).getY() * multiplierY;
+            double y2 = this.getPoints().get(j).getY() * multiplierY;
+
+            if(x2-x1!=0) {
+                double a = (y2 - y1) / (x2 - x1);
+                double b = y1 - a * x1;
+                if ((Math.abs(y - (int) (a * x + b)) <= 2)) flag = true;
+            }
+            else{
+                if ((Math.abs(x - x1) <= 2)&&(y>=Math.min(y1, y2) && y<=Math.max(y1, y2))) flag = true;
+            }
+        }
+        return flag;
+
     }
 
     /**
@@ -87,14 +110,22 @@ public class Polygon extends Figure{
     }
 
     @Override
-    public String toString() {
-        String result = "\nМногоугольник с вершинами в точках: ";
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Polygon figure = (Polygon) o;
+        return points.equals(figure.points);
+    }
 
-        for (int i = 0; i < points.size(); i++) {
-            result += points.get(i) + " ";
-        }
-        result += "\n*Характеристики: \nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea() + "\n";
-        return result;
+    @Override
+    public int hashCode() {
+        return Objects.hash(points);
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "с вершинами в точках: " + points + "\nХарактеристики: "
+                + "\nПериметр: " + getPerimeter() + "\nПлощадь: " + getArea() + "\nЦентр фигуры: " + getCenter();
     }
 
 }

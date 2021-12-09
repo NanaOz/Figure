@@ -25,6 +25,9 @@ public class Menu {
         this.figures = figures;
     }
 
+    /**
+     * Необходим при первом запуске программы.
+     */
     public static void existingFigure() {
         figures = new TreeMap<String, Figure>();
 
@@ -47,7 +50,7 @@ public class Menu {
         figures.put(String.valueOf(id), circle);
         id++;
     }
-    private static final long serialVersionUID = 1L;
+
     public static void saveToFile(TreeMap<String, Figure> figures, String file) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file, false))) {
        oos.writeObject(figures);
@@ -82,7 +85,6 @@ public class Menu {
             + "\n\t0 - Вернуться назад\n";
 
     public static void start() {
-
         System.out.println("--------WELCOME--------");
         boolean itContinues = true;
         while (itContinues) {
@@ -122,7 +124,7 @@ public class Menu {
     /**
      * Добавление фигуры
      */
-    private static void addFigure() {
+    public static void addFigure() {
         List<Point> points = FigureCreateHelper.createPointFromInput();
         Figure createdFigure = FigureCreateHelper.getFigureFactory(points).createFigure(points);
         System.out.println("Добавлена фигура:" + createdFigure);
@@ -133,7 +135,7 @@ public class Menu {
     /**
      * Выброб конкретной фигуры (для ее изменения)
      */
-    private static void startActionFigureMenu() {
+    public static void startActionFigureMenu() {
         boolean validate;
         String key;
         do {
@@ -205,17 +207,8 @@ public class Menu {
     /**
      * Удалить фигуру
      */
-    private static void removeFigure(String id) {
+    public static void removeFigure(String id) {
         figures.remove(id);
         System.out.println("Фигура удалена\n");
     }
-
-//    @JsonAutoDetect
-//    public static class FigureCollection {
-//        public ArrayList<Figure> figures;
-//
-//        public FigureCollection() {
-//            this.figures = new ArrayList<>();
-//        }
-//    }
 }

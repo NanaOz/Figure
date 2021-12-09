@@ -1,169 +1,236 @@
 package com.company.Swing;
 
 import com.company.Figure;
+import com.company.Main;
+import com.company.Menu;
+import com.company.figure.Circle;
+import com.company.figure.Point;
+import com.company.figure.Triangle;
 import com.sun.source.tree.Tree;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 
-public class MyWindow extends JFrame {
+import static com.company.Menu.*;
+
+public class MyWindow extends JFrame implements ActionListener {
+    private GraphicsCanvas canvas;
+    private TreeMap<String, Figure> figures;
+    private JPanel panel;
+    private GridBagConstraints location;
+    boolean chooseFigureAvailable=false;
+    Figure activeFigure=null;
+    JButton cancelChooseButton;
+
+    //    int sizeX;
+//    int sizeY;
+    ArrayList<JTextField> xTexts;
+    ArrayList<JTextField> yTexts;
+//    GridBagConstraints location;
 
     public MyWindow(TreeMap<String, Figure> figures) {
         super();
         this.figures = figures;
         this.setSize(800, 800);
-        this.add(new GraphicsCanvas(figures));
+//        this.add(new GraphicsCanvas(figures));
         this.setVisible(true);
+        this.canvas = new GraphicsCanvas(figures);
+        canvas.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+               // JOptionPane.showMessageDialog(null, "x = " + x + " y =" + y, "title", JOptionPane.PLAIN_MESSAGE);
+                activeFigure=defineFigureByCursor(x, y, canvas.multiplierX, canvas.multiplierY, figures);
+                if(chooseFigureAvailable && activeFigure!=null) {
+                    //JOptionPane.showMessageDialog(null, "ФИГУРА ВЫБРАНА!", "title", JOptionPane.PLAIN_MESSAGE);
+                    canvas.repaintGraphics(new TreeMap<>(){{put("1", activeFigure);}});
+                    panel.add(new JButton("Повернуть фигуру"));
+                    panel.add(new JTextField("Введите на сколько градусов повернуть"));
+
+
+                    panel.add(new JButton("Переместить фигуру"));
+                    panel.add(new JTextField("Введите куда переместить фигуру"));
+
+                    panel.add(new JButton("Увеличить фигуру"));
+                    panel.add(new JTextField("Введите на сколько увеличить фигуру"));
+
+                    panel.add(new JButton("Удалить фигуру"));
+                }
+
+
+            }
+
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        this.add(canvas);
+
+
         guiCanvas();
+        setExtendedState(MAXIMIZED_BOTH);
+
+
+        panel.setLayout(new GridBagLayout());
+        location = new GridBagConstraints();
+
+        location.fill = GridBagConstraints.HORIZONTAL;
+        location.weightx = 3;
+        location.weighty = 1;
+
+        location.gridy = 0;
+        location.anchor = GridBagConstraints.FIRST_LINE_START;
+//        location.gridwidth = 0;
+//        location.gridheight = 0;
+
     }
 
-    private GraphicsCanvas panel;
-    private TreeMap<String, Figure> figures;
+    public Figure defineFigureByCursor(int x, int y, int multiplierX, int multiplierY, TreeMap<String, Figure> figures) {
+        for (Figure f : figures.values()) {
+            if (f.containPoint(x, y, multiplierX, multiplierY)) return f;
 
+        }
+        return null;
+    }
 
     public void guiCanvas() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//        Container container = getContentPane();
-//        container.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        setLayout(new BorderLayout());
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout());
+        panel = new JPanel();
         JButton button;
-        JComboBox cb = new JComboBox();
-        panel.add(cb);
+
+        JLabel label = new JLabel("Выберите нужный пункт меню:");
+        panel.add(label);
+
         button = new JButton("Вывести все фигуры");
-        panel.add(button);
-        button.setVisible(true);
-        button.setBounds(50, 50, 50, 50);
-        button = new JButton("Создать фигуру");
-        panel.add(button);
-        button = new JButton("Изменить фигуру");
-        panel.add(button);
-        button = new JButton("Сохранить файл");
-        panel.add(button);
+        button.addActionListener(this);
+//        location.gridx = 0;
+        panel.add(button, location);
 
+        JButton createButton = new JButton("Создать фигуру");
+        createButton.addActionListener(this);
+//        location.gridx = 1;
+        panel.add(createButton);
 
+        JButton changeButton = new JButton("Изменить фигуру");
+        changeButton.addActionListener(this);
 
-//        JButton button1 = new JButton("Вывести все фигуры");
-//        button1.setActionCommand("Button 1 was pressed!");
-//        button1.addActionListener(new ListenerAction());
-//        button1.addChangeListener(new ListenerChange());
-//        panel.add(button1);
-//        button1.getRolloverIcon();
-//        button1.setVisible(true);
-//        button1.setBounds(50, 50, 50, 50);
-////        container.add(button1);
-//
-//        JButton button2 = new JButton("Создать фигуру");
-//        button2.setActionCommand("Button 2 was pressed!");
-//        button2.addActionListener(new ListenerAction());
-//        button2.addChangeListener(new ListenerChange());
-//        button2.getRolloverIcon();
-//        panel.add(button2);
-////        container.add(button2);
-//
-//        JButton button3 = new JButton("Изменить фигуру");
-//        button3.setActionCommand("Button 3 was pressed!");
-//        button3.addActionListener(new ListenerAction());
-//        button3.addChangeListener(new ListenerChange());
-//        button3.getRolloverIcon();
-//        panel.add(button3);
-////        container.add(button3);
-//
-//        JButton button4 = new JButton("Сохранить файл");
-//        button4.setActionCommand("Button 4 was pressed!");
-//        button4.addActionListener(new ListenerAction());
-//        button4.addChangeListener(new ListenerChange());
-//        button4.getRolloverIcon();
-//        panel.add(button4);
-////        container.add(button4);
-//
-//        JButton button5 = new JButton("Выход");
-//        button5.setActionCommand("Button 5 was pressed!");
-//        button5.addActionListener(new ListenerAction());
-//        button5.addChangeListener(new ListenerChange());
-//        button5.getRolloverIcon();
-//        panel.add(button5);
-////        container.add(button5);
+        changeButton.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int x = e.getX();
+                int y = e.getY();
+//        System.out.println(x+","+y);//these co-ords are relative to the component
+                JOptionPane.showMessageDialog(null, "x = " + x + " y =" + y, "title", JOptionPane.PLAIN_MESSAGE);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        panel.add(changeButton);
+
+        JButton saveButton = new JButton("Сохранить файл");
+        saveButton.addActionListener(this);
+
+        panel.add(saveButton);
+
+        this.add(panel);
+        this.setLayout(new GridLayout());
 
     }
 
-    class ListenerAction implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("Нажатие кнопки" + e.getActionCommand() + "\n");
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        System.out.println("Кнопка нажата");
+//        JOptionPane.showMessageDialog(null, "My Goodness, this is so concise");
 
+        if (e.getActionCommand().equals("Создать фигуру")) {
+            location.fill = GridBagConstraints.HORIZONTAL;
+            location.weightx = 1;
+            location.weighty = 1;
+            location.ipadx = 10;
+            location.gridy = 1;
+            location.anchor = GridBagConstraints.LINE_START;
+            location.gridx = 0;
+            this.xTexts = new ArrayList<>();
+            this.yTexts = new ArrayList<>();
+            panel.add(new JTextField("Введите x"));
+//            location.gridx = 2;
+//            location.gridy = 2;
+            panel.add(new JTextField("Введите y"));
+//            location.gridx = 3;
+//            location.gridy = 2;
+            panel.add(new JButton("создать фигуру"));
+//            location.gridx = 4;
+//            location.gridy = 2;
+////
+            panel.add(new JButton("добавить координаты точки"));
+            panel.revalidate();
+        } else if (e.getActionCommand().equals("Вывести все фигуры")) {
+            canvas.repaintGraphics(figures);
+            this.repaint();
+        } else if (e.getActionCommand().equals("Изменить фигуру")) {
+//            Cursor.getPredefinedCursor(Cursor.HAND_CURSOR);
+//            JOptionPane.showMessageDialog(null, Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), "title", JOptionPane.PLAIN_MESSAGE);
+            cancelChooseButton = new JButton("Отменить выбор фигуры");
+            cancelChooseButton.addActionListener(this);
+            panel.add(cancelChooseButton);
+            this.chooseFigureAvailable=true;
+
+            panel.add(new JTextField("Выберите фигуру для изменения: "));
+
+        } else if (e.getActionCommand().equals("Сохранить файл")) {
+
+
+        }
+        else if (e.getActionCommand().equals("Отменить выбор фигуры")){
+            this.chooseFigureAvailable=false;
+            this.panel.remove(cancelChooseButton);
         }
     }
 
-    class ListenerChange implements ChangeListener {
-        public void stateChanged(ChangeEvent e) {
-            // Источник события
-            Object src = e.getSource();
-            System.out.println("Cообщение о смене состояния объекта : " + src.getClass());
-        }
-    }
-
-//    public void gCanvas(List<Figure> figures){
-//        setVisible(true);
-//        setSize(500,500);
-//        setDefaultCloseOperation(EXIT_ON_CLOSE);
-//        this.figures = figures;
-//        this.panel = new Panel(figures);
-//        JButton jButton = new JButton("Кнопка");
-//        jButton.setVisible(true);
-//        jButton.setBounds(50, 50, 50, 50);
-//
-//
-////        this.panel.add(jButton); //комент
-//
-//
-//        this.panel.setVisible(true);
-//        this.add(panel);
-//
-//
-////        panel = new Panel();   //комент
-////        panel.drawFigures(figures);
-////        panel.setVisible(true);
-////        JPanel jPanel = new JPanel();
-//
-//
-//        JButton jButton2 = new JButton("Нажми и случится чудо");
-//        jButton2.addActionListener(this::actionPerformed );
-//
-//
-////        panel.add(jButton2);    //комент
-////        getContentPane().setLayout(new FlowLayout());
-//
-//
-//        panel.setBounds(0,0,1000,1000);       //позиция 1панели
-//        add(panel);
-//
-//
-////        this.update(panel.drawFigures(figures));   //комент
-////        jPanel.setLayout(new GridLayout(10, 10));
-////        jPanel.setBounds(300,200,200,200);  //позиция 2панели
-////        add(jPanel);
-//
-//    }
-//
-//    public void actionPerformed(ActionEvent e) {
-//        ArrayList<Point> trianglePoints = new ArrayList<>();
-//        Collections.addAll(trianglePoints, new Point(0, 0), new Point(0, 3), new Point(4, 3));
-//        Triangle triangle = new Triangle(trianglePoints);
-//        ArrayList <Figure> f = new ArrayList<>();
-//        f.add(triangle);
-//        panel = new Panel (f);
-//        this.update(this.getGraphics());
-//        this.repaint();
-//
-////                panel.setVisible(!panel.isVisible());
-//
-//    }
 }
+
