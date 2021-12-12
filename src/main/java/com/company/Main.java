@@ -3,7 +3,7 @@ package com.company;
 import com.company.Swing.MyWindow;
 
 public class Main {
-    static final String file = ("src/main/java/com/company/data/template.txt");
+    public static final String file = ("src/main/java/com/company/data/template.txt");
 
     public static void main(String[] args) {
         startMenu();

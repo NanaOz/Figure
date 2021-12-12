@@ -5,11 +5,12 @@ import com.company.Figure;
 import com.company.figure.Point;
 import com.sun.source.tree.Tree;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.TreeMap;
 
-public class GraphicsCanvas extends Canvas {
+public class GraphicsCanvas extends JPanel {
 
     private TreeMap<String, Figure> figures;
     public int multiplierX;

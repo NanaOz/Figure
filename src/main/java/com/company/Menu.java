@@ -19,7 +19,7 @@ public class Menu {
     private static final String SELECT_ACTION = "Выберите действие: ";
     private static final String INCORRECT_INPUT = "Такого действия не существует!";
     public static TreeMap<String, Figure> figures;
-    static int id = 1;
+    public static int id = 1;
 
     public Menu(TreeMap<String, Figure> figures) {
         this.figures = figures;
@@ -176,7 +176,7 @@ public class Menu {
     /**
      * Поворот фигуры
      */
-    private static void rotateFigure(Figure figure) {
+    public static void rotateFigure(Figure figure) {
         System.out.println("Введите на сколько градусов повернуть фигуру: ");
         double angle = ScannerHelper.readDouble();
         figure.rotate(angle);
@@ -186,7 +186,7 @@ public class Menu {
     /**
      * Увеличение фигуры
      */
-    private static void scaleFigure(Figure figure) {
+    public static void scaleFigure(Figure figure) {
         System.out.println("На сколько вы хотите увеличить вашу фигуру: ");
         double size = ScannerHelper.readDouble();
         figure.scale(size);
@@ -196,7 +196,7 @@ public class Menu {
     /**
      * Перемещение фигуры
      */
-    private static void moveFigure(Figure figure) {
+    public static void moveFigure(Figure figure) {
         System.out.println("Введите направление, для перемещения фигуры: ");
         double x = ScannerHelper.getDoubleFromInput("Введите x: ");
         double y = ScannerHelper.getDoubleFromInput("Введите y: ");
