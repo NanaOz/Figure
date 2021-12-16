@@ -1,10 +1,14 @@
 package com.company.helper;
 
+import com.company.Figure;
 import com.company.figure.Point;
 import com.company.factory.*;
+import com.sun.source.tree.Tree;
+
 import java.util.*;
 
 public class FigureCreateHelper {
+    public static int id=1;
 
     /**
      * @return Создание точек (сколько ввел пользователь)
@@ -44,6 +48,18 @@ public class FigureCreateHelper {
                 factory = new PolygonCreator();
         }
         return factory;
+    }
+
+    public static String getKeyByFigure (TreeMap<String, Figure> figures, Figure figure){
+        if (figures.containsValue(figure)) {
+            for (Map.Entry <String, Figure>f: figures.entrySet()){
+                if (f.getValue().equals(figure)){
+                    return f.getKey();
+                }
+
+            }
+        }
+        return null;
     }
 }
 

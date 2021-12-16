@@ -35,7 +35,7 @@ public class GraphicsCanvas extends JPanel {
         canvas.drawLine(width / 2, 0, width / 2, height);
         canvas.drawLine(0, height / 2, width, height / 2);
 
-        //stream().toList() ПОСМОТРЕТЬ
+        //stream().toList()
         if (figures.size() > 0) {
             double minX = figures.values().stream().toList().get(0).getPoints().get(0).getX();
             double minY = figures.values().stream().toList().get(0).getPoints().get(0).getY();
@@ -58,27 +58,27 @@ public class GraphicsCanvas extends JPanel {
     }
 
     public void drawFigures (Graphics g, Figure figure, int multiplierX, int multiplierY){
-//        Graphics canvas = (Graphics) g.create();
         List<Point> points = figure.getPoints();
             if (figure instanceof Circle) {
                 int multiplier = (int)Math.min(multiplierX, multiplierY);
                 Circle circle = (Circle) figure;
-                int x1 = (int) circle.getCenter().getX() * multiplierX;
-                int y1 = (int) circle.getCenter().getY() * multiplierY;
+                int x1 = (int) (circle.getCenter().getX() * multiplierX) + getWidth()/2;
+                int y1 = - (int) (circle.getCenter().getY() * multiplierY) + getHeight()/2;
                 int radius = (int) circle.getRadius() *multiplier;
                 g.drawOval(x1 - radius, y1 - radius, radius * 2, radius * 2);
-            } else {
+            }
+            else {
                 for (int i = 0; i < figure.getPoints().size() - 1; i++) {
-                    int x1 = (int) figure.getPoints().get(i).getX() * multiplierX;
-                    int y1 = (int) figure.getPoints().get(i).getY() * multiplierY;
-                    int x2 = (int) figure.getPoints().get(i + 1).getX() * multiplierX;
-                    int y2 = (int) figure.getPoints().get(i + 1).getY() * multiplierY;
+                    int x1 = (int) (figure.getPoints().get(i).getX() * multiplierX) + getWidth()/2;
+                    int y1 = - (int) (figure.getPoints().get(i).getY() * multiplierY) + getHeight()/2;
+                    int x2 = (int) (figure.getPoints().get(i + 1).getX() * multiplierX) + getWidth()/2;
+                    int y2 = - (int) (figure.getPoints().get(i + 1).getY() * multiplierY) + getHeight()/2;
                     g.drawLine(x1, y1, x2, y2);
                 }
-                int x1 = (int) figure.getPoints().get(figure.getPoints().size() - 1).getX() * multiplierX;
-                int y1 = (int) figure.getPoints().get(figure.getPoints().size() - 1).getY() * multiplierY;
-                int x2 = (int) figure.getPoints().get(0).getX() * multiplierX;
-                int y2 = (int) figure.getPoints().get(0).getY() * multiplierY;
+                int x1 = (int) (figure.getPoints().get(figure.getPoints().size() - 1).getX() * multiplierX) + getWidth()/2;
+                int y1 = - (int) (figure.getPoints().get(figure.getPoints().size() - 1).getY() * multiplierY) + getHeight()/2;
+                int x2 = (int) (figure.getPoints().get(0).getX() * multiplierX) + getWidth()/2;
+                int y2 = - (int) (figure.getPoints().get(0).getY() * multiplierY) + getHeight()/2;
                 g.drawLine(x1, y1, x2, y2);
             }
         }

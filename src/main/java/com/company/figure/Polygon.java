@@ -69,9 +69,11 @@ public class Polygon extends Figure {
     public void rotate(double angle) {
         angle *= Math.PI / 180;
         for (int i = 0; i < points.size(); i++) {
-            double x = (points.get(i).getX() - figureCenter.getX()) * Math.cos(angle) - (points.get(i).getY() - figureCenter.getY()) * Math.sin(angle);
-            double y = (points.get(i).getX() - figureCenter.getX()) * Math.cos(angle) + (points.get(i).getY() - figureCenter.getY()) * Math.sin(angle);
-            points.set(i, new Point(x, y));
+            double x = (points.get(i).getX() - figureCenter.getX()) * Math.cos(angle) - (points.get(i).getY()
+                    - figureCenter.getY()) * Math.sin(angle);
+            double y = (points.get(i).getX() - figureCenter.getX()) * Math.cos(angle) + (points.get(i).getY()
+                    - figureCenter.getY()) * Math.sin(angle);
+            points.set(i, new Point(x + getCenter().getX(), y + getCenter().getY()));
         }
     }
 

@@ -1,9 +1,6 @@
 package com.company;
 
-import com.company.figure.Circle;
-import com.company.figure.Point;
-import com.company.figure.Rectangle;
-import com.company.figure.Triangle;
+import com.company.figure.*;
 import com.company.interfaces.IMovable;
 import com.company.interfaces.IRotatable;
 import com.company.interfaces.IScalable;
@@ -21,7 +18,9 @@ import java.util.List;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = Circle.class, name = "Circle"),
         @JsonSubTypes.Type(value = Triangle.class, name = "Triangle"),
-        @JsonSubTypes.Type(value = Rectangle.class, name = "Rectangle")
+        @JsonSubTypes.Type(value = Rectangle.class, name = "Rectangle"),
+        @JsonSubTypes.Type(value = Polygon.class, name = "Polygon")
+
 })
 public abstract class Figure implements IMovable, IRotatable, IScalable, Serializable {
 
@@ -29,6 +28,7 @@ public abstract class Figure implements IMovable, IRotatable, IScalable, Seriali
     private static final long serialVersionUID = 1L;
 
     protected List<Point> points;
+
     protected Point figureCenter;
     protected double area;
     protected double perimeter;

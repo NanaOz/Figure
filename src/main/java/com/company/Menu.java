@@ -65,6 +65,12 @@ public class Menu {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
 
             figures = (TreeMap<String, Figure>) ois.readObject();
+            int max=0;
+            for(String key: figures.keySet()){
+                if(Integer.valueOf(key)>max) max = Integer.valueOf(key);
+            }
+            FigureCreateHelper.id=max;
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -128,12 +134,12 @@ public class Menu {
         List<Point> points = FigureCreateHelper.createPointFromInput();
         Figure createdFigure = FigureCreateHelper.getFigureFactory(points).createFigure(points);
         System.out.println("Добавлена фигура:" + createdFigure);
-        figures.put(String.valueOf(id), createdFigure);
-        id++;
+        figures.put(String.valueOf(FigureCreateHelper.id), createdFigure);
+        FigureCreateHelper.id++;
     }
 
     /**
-     * Выброб конкретной фигуры (для ее изменения)
+     * Выбор конкретной фигуры (для ее изменения)
      */
     public static void startActionFigureMenu() {
         boolean validate;
